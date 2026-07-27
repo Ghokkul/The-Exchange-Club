@@ -23,6 +23,7 @@
     --ink-soft:   #435649;
     --rule:       #aebaa2;
     --seal:       #7b2b21;
+    --claimed:    #2f7a41;
     --gold:       #96762c;
 
     --display: "Bodoni Moda", Georgia, serif;
@@ -273,12 +274,17 @@
     font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
     padding:4px 9px; border:1px solid currentColor;
   }
-  .chip-sold{ color:var(--seal); }
   .chip-open{ background:var(--ink); color:var(--paper-lite); border-color:var(--ink); }
   .ticks{ display:flex; gap:2px; height:34px; align-items:stretch; }
   .tick{ flex:1 1 0; background:var(--paper-deep); border-radius:1px; }
-  .tick.on{ background:var(--ink); }
-  .tier.sold .tick.on{ background:var(--seal); }
+  .tick.on{ background:var(--claimed); }
+  .tick.just{ animation:claim .9s ease both; }
+  @keyframes claim{
+    0%   { background:var(--paper-deep); transform:scaleY(.3); }
+    45%  { background:#4fbe6a; transform:scaleY(1.15); }
+    100% { background:var(--claimed); transform:scaleY(1); }
+  }
+  .chip-sold{ color:var(--claimed); }
   .tier.locked .tick{ opacity:.55; }
   .tier.locked .tier-name{ color:var(--ink-soft); }
 
@@ -439,6 +445,8 @@
   .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); margin-top:54px; text-align:left; }
   .step{ background:var(--paper); padding:22px; }
   .step b{ font-family:var(--mono); font-size:11px; letter-spacing:.18em; color:var(--seal); display:block; margin-bottom:8px; }
+  .step a, .apply p a{ color:var(--seal); text-decoration:none; border-bottom:1px solid var(--rule); transition:border-color .2s ease; }
+  .step a:hover, .apply p a:hover{ border-color:var(--seal); }
   .step span{ font-size:15px; color:var(--ink-soft); }
 
   /* ---------- application form ---------- */
@@ -791,38 +799,41 @@
           <span class="amount">$5</span>
           <span class="per">paid once</span>
           <p>One payment and you are a member. There is no renewal, no annual fee and nothing to cancel &mdash; the five dollars exist to make joining a decision rather than a click.</p>
-          <a class="btn" href="#apply">Claim a seat for $5</a>
+          <a class="btn" href="https://buy.stripe.com/14A3cv2Utf8m8X1ebE93y03" target="_blank" rel="noopener noreferrer">Claim a seat for $5</a>
         </aside>
 
         <div class="tiers" id="tiers">
-          <div class="tier anim" data-filled="0">
+          <div class="tier anim" data-issue="0">
             <div class="tier-top">
               <span class="tier-name">First issue &middot; the founding members</span>
-              <span class="chip chip-open">Open now</span>
+              <span class="chip-slot"></span>
               <span class="tier-count">0 / 50</span>
             </div>
             <div class="ticks" aria-hidden="true"></div>
           </div>
 
-          <div class="tier locked anim" data-filled="0">
+          <div class="tier anim" data-issue="1">
             <div class="tier-top">
               <span class="tier-name">Second issue &middot; opens when the first is claimed</span>
+              <span class="chip-slot"></span>
               <span class="tier-count">0 / 50</span>
             </div>
             <div class="ticks" aria-hidden="true"></div>
           </div>
 
-          <div class="tier locked anim" data-filled="0">
+          <div class="tier anim" data-issue="2">
             <div class="tier-top">
               <span class="tier-name">Third issue &middot; 2027 intake</span>
+              <span class="chip-slot"></span>
               <span class="tier-count">0 / 50</span>
             </div>
             <div class="ticks" aria-hidden="true"></div>
           </div>
 
-          <div class="tier locked anim" data-filled="0">
+          <div class="tier anim" data-issue="3">
             <div class="tier-top">
               <span class="tier-name">Fourth issue &middot; the room closes after this</span>
+              <span class="chip-slot"></span>
               <span class="tier-count">0 / 50</span>
             </div>
             <div class="ticks" aria-hidden="true"></div>
@@ -999,7 +1010,7 @@
       <div class="steps">
         <div class="step"><b>Step one</b><span>Send the form above, or just email helloghokkul@gmail.com and say hello.</span></div>
         <div class="step"><b>Step two</b><span>Ghokkul replies, usually within a few days, and asks whatever he still wants to know.</span></div>
-        <div class="step"><b>Step three</b><span>Pay the $5 once. Your Founder&#8217;s Circle card is issued within two days and never expires.</span></div>
+        <div class="step"><b>Step three</b><span><a href="https://buy.stripe.com/14A3cv2Utf8m8X1ebE93y03" target="_blank" rel="noopener noreferrer">Pay the $5 once.</a> Your Founder&#8217;s Circle card is issued within two days and never expires.</span></div>
       </div>
     </div>
   </section>
@@ -1008,7 +1019,7 @@
 <footer>
   <div class="wrap foot">
     <a class="mark" href="#top">The <span>Exchange</span></a>
-    <span>Auckland · Sydney · Singapore · San Francisco</span>
+    <span>Every time zone · no closing bell</span>
     <a href="mailto:helloghokkul@gmail.com">helloghokkul@gmail.com</a>
     <span style="margin-left:auto">One payment · No renewal · Verification required</span>
   </div>
@@ -1041,18 +1052,107 @@
   guilloche(document.getElementById("guilloche-hero"), 600, 300, 46, 560, 260, "rgba(17,36,26,.20)");
   guilloche(document.getElementById("guilloche-card"), 300, 200, 30, 280, 150, "rgba(17,36,26,.16)");
 
-  /* ---- tier tick bars: 50 ticks = 50 seats ---- */
+  /* ================= SEATS CLAIMED =================
+     The bar fills green as memberships are bought.
+
+     OPTION A — update by hand after each sale:
+         set SEATS_CLAIMED below to the number sold, save, re-upload.
+
+     OPTION B — update itself:
+         set SEATS_URL to an address that returns either a bare
+         number ("7") or JSON ({"claimed":7}). The page reads it on
+         load and re-checks every 60 seconds, so the bar grows on
+         its own. Any endpoint works — a Cloudflare Worker or
+         Google Apps Script fed by your Stripe webhook, for example.
+
+     Add ?seats=12 to the page URL at any time to preview a number
+     without changing either setting.
+     ================================================= */
+  var SEATS_CLAIMED = 0;
+  var SEATS_URL     = "";      // e.g. "https://api.yoursite.com/seats"
+  var PER_ISSUE     = 50;
+
   var tiers = document.querySelectorAll(".tier");
-  Array.prototype.forEach.call(tiers, function(tier){
-    var bar = tier.querySelector(".ticks");
-    var filled = parseInt(tier.getAttribute("data-filled"), 10) || 0;
+  var seatsShown = -1;
+
+  function buildTicks(bar, n){
     var html = "";
-    for(var i = 0; i < 50; i++){
-      html += '<span class="tick' + (i < filled ? " on" : "") + '"></span>';
+    for(var i = 0; i < PER_ISSUE; i++){
+      html += '<span class="tick' + (i < n ? " on" : "") + '"></span>';
     }
     bar.innerHTML = html;
-    if(reduce) tier.classList.add("in");
-  });
+  }
+
+  function renderSeats(total, animateNew){
+    total = Math.max(0, Math.min(PER_ISSUE * tiers.length, total | 0));
+    var previous = seatsShown < 0 ? total : seatsShown;
+
+    Array.prototype.forEach.call(tiers, function(tier, i){
+      var filled = Math.max(0, Math.min(PER_ISSUE, total - PER_ISSUE * i));
+      var before = Math.max(0, Math.min(PER_ISSUE, previous - PER_ISSUE * i));
+      var bar    = tier.querySelector(".ticks");
+      var slot   = tier.querySelector(".chip-slot");
+      var count  = tier.querySelector(".tier-count");
+      var full   = filled === PER_ISSUE;
+      var isOpen = !full && (i === 0 || total >= PER_ISSUE * i);
+
+      buildTicks(bar, filled);
+      count.textContent = filled + " / " + PER_ISSUE;
+
+      tier.classList.toggle("sold", full);
+      tier.classList.toggle("locked", !full && !isOpen);
+
+      slot.innerHTML = full   ? '<span class="chip chip-sold">Claimed</span>'
+                     : isOpen ? '<span class="chip chip-open">Open now</span>'
+                     : "";
+
+      if(animateNew && filled > before && !reduce){
+        var ticks = bar.querySelectorAll(".tick");
+        for(var k = before; k < filled; k++){
+          (function(el, delay){
+            setTimeout(function(){ el.classList.add("just"); }, delay);
+          })(ticks[k], (k - before) * 90);
+        }
+      }
+    });
+
+    // header and hero read from the same number
+    var openIndex = Math.min(tiers.length - 1, Math.floor(total / PER_ISSUE));
+    var left = PER_ISSUE - (total % PER_ISSUE);
+    var word = ["First", "Second", "Third", "Fourth"][openIndex];
+    var seatsEl = document.querySelector(".masthead-seats");
+    var noteEl  = document.querySelector(".hero-cta .hero-note");
+    if(total >= PER_ISSUE * tiers.length){
+      if(seatsEl) seatsEl.textContent = "All seats claimed";
+      if(noteEl)  noteEl.textContent  = "Every seat claimed · the room is closed";
+    } else {
+      if(seatsEl) seatsEl.textContent = word + " issue · " + left + (left === 1 ? " seat left" : " seats left");
+      if(noteEl)  noteEl.textContent  = word + " issue open · " + left + " of 50 seats left · $5 once";
+    }
+
+    seatsShown = total;
+  }
+
+  // ?seats=N preview beats everything else
+  var q = /[?&]seats=(\d+)/.exec(window.location.search);
+  renderSeats(q ? parseInt(q[1], 10) : SEATS_CLAIMED, false);
+
+  function pollSeats(){
+    if(!SEATS_URL || q) return;
+    fetch(SEATS_URL, { cache: "no-store" })
+      .then(function(r){ return r.text(); })
+      .then(function(txt){
+        var n;
+        try { var j = JSON.parse(txt); n = (typeof j === "number") ? j : (j.claimed !== undefined ? j.claimed : j.seats); }
+        catch(e) { n = parseInt(txt, 10); }
+        if(!isNaN(n) && n !== seatsShown) renderSeats(n, true);
+      })
+      .catch(function(){ /* offline or endpoint down: keep the last good number */ });
+  }
+  pollSeats();
+  if(SEATS_URL && !q) setInterval(pollSeats, 60000);
+
+  if(reduce) Array.prototype.forEach.call(tiers, function(t){ t.classList.add("in"); });
 
   if(!reduce && "IntersectionObserver" in window){
     var io = new IntersectionObserver(function(entries){
