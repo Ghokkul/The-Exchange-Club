@@ -425,13 +425,71 @@
   .foot{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--ink-soft); }
   .foot .mark{ font-size:12px; }
 
+  /* ---------- the ledger ---------- */
+  .ledger{ background:var(--paper-lite); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+  .ledger-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap;
+    padding-bottom:16px; border-bottom:2px solid var(--ink); margin-bottom:34px;
+  }
+  .ledger-head h2{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(30px,5vw,56px); letter-spacing:-.01em; line-height:1; margin:6px 0 0;
+  }
+  .entry-tag{
+    font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--seal); display:block; margin-bottom:12px;
+  }
+  .lead-entry{
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+    gap:clamp(20px,4vw,48px);
+    padding-bottom:clamp(28px,4vw,40px);
+    border-bottom:1px solid var(--rule);
+    margin-bottom:clamp(28px,4vw,40px);
+  }
+  .lead-entry h3{
+    font-family:var(--display); font-weight:400;
+    font-size:clamp(27px,4vw,44px); line-height:1.06; letter-spacing:-.015em;
+    margin:0;
+  }
+  .lead-entry h3 em{ font-style:italic; color:var(--seal); }
+  .lead-dek{
+    font-style:italic; font-size:19px; color:var(--ink); margin:0 0 16px; max-width:46ch;
+  }
+  .lead-entry p{ margin:0 0 14px; color:var(--ink-soft); max-width:58ch; }
+  .entries{
+    display:grid; grid-template-columns:repeat(2,1fr);
+    gap:1px; background:var(--rule); border:1px solid var(--rule);
+  }
+  .entry{ background:var(--paper-lite); padding:clamp(22px,2.6vw,32px); }
+  .entry h3{
+    font-family:var(--display); font-weight:400; font-size:clamp(20px,2.2vw,25px);
+    line-height:1.15; margin:0 0 12px;
+  }
+  .entry p{ margin:0; color:var(--ink-soft); font-size:16px; }
+  .ledger-note{
+    font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-soft); margin-top:22px;
+  }
+  .nav-link{
+    font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    text-decoration:none; color:var(--ink-soft);
+    border-bottom:1px solid transparent; padding-bottom:2px;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .nav-link:hover{ color:var(--ink); border-color:var(--seal); }
+
   @media (max-width:900px){
     .steps{ grid-template-columns:1fr; }
+    .lead-entry, .entries{ grid-template-columns:1fr; }
     .article{ grid-template-columns:1fr; gap:14px; }
     .tiers-grid, .card-grid, .founder-grid{ grid-template-columns:1fr; }
     .price-now{ position:static; }
     .portrait{ max-width:220px; }
     .masthead-seats{ display:none; }
+    .masthead-in{ gap:14px; }
+  }
+  @media (max-width:640px){
+    .nav-link{ display:none; }
   }
   @media (max-width:520px){
     .dg{ box-shadow:inset 0 0 0 2px var(--paper-lite); }
@@ -452,6 +510,7 @@
   <div class="wrap masthead-in">
     <a class="mark" href="#top">Eight Figure <span>Club</span></a>
     <div class="masthead-seats">50 seats open at the founding tier</div>
+    <a class="nav-link" href="#ledger">The Ledger</a>
     <a class="btn btn-ghost" href="#apply">Apply</a>
   </div>
 </header>
@@ -555,6 +614,59 @@
           </div>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <!-- THE LEDGER -->
+  <section class="sec ledger" id="ledger">
+    <div class="wrap">
+      <div class="ledger-head">
+        <div>
+          <p class="eyebrow">Vol. I &middot; Written for members</p>
+          <h2>The Ledger</h2>
+        </div>
+        <p class="eyebrow">Five entries on owning, earning, and keeping</p>
+      </div>
+
+      <article class="lead-entry">
+        <div>
+          <span class="entry-tag">Entry one &middot; On knowledge</span>
+          <h3>The most expensive thing you own is <em>what you don&#8217;t know yet.</em></h3>
+        </div>
+        <div>
+          <p class="lead-dek">Money follows knowledge with a delay. The delay is where most businesses die.</p>
+          <p>Every eight-figure company is a bet that somebody understood a market slightly earlier or slightly better than the people competing for it. Not harder work &mdash; work is abundant and cheap. Understanding is neither.</p>
+          <p>The uncomfortable part is that the knowledge that matters is rarely written down. Nobody publishes the real reason a distribution deal collapsed, the true cost of a bad senior hire, or the number an acquirer actually opened with. That knowledge sits inside people who have already paid for it, and it moves by conversation, not by search. Which is why proximity to those people compounds faster than almost anything else you can buy.</p>
+        </div>
+      </article>
+
+      <div class="entries">
+        <article class="entry">
+          <span class="entry-tag">Entry two &middot; On ownership</span>
+          <h3>An owner and an operator are two different jobs</h3>
+          <p>Most founders promote themselves to owner years after the business needed it. The tell is simple: if the company&#8217;s output drops when you take three weeks off, you are still the operator, and the business is a job with extra risk attached. The work of ownership is building the thing that runs without you &mdash; then deciding what it should own next.</p>
+        </article>
+
+        <article class="entry">
+          <span class="entry-tag">Entry three &middot; On allocation</span>
+          <h3>Earning it and keeping it are unrelated skills</h3>
+          <p>The instinct that builds a company &mdash; put everything back in, move fast, back yourself &mdash; is the same instinct that concentrates a founder&#8217;s entire net worth in one illiquid asset. Businesses fail for reasons outside your control. Deciding in advance what share of profit leaves the company each year, and holding to it in the good years, is the discipline that separates a wealthy founder from a busy one.</p>
+        </article>
+
+        <article class="entry">
+          <span class="entry-tag">Entry four &middot; On patience</span>
+          <h3>Boring capital beats clever capital</h3>
+          <p>Complexity usually gets sold to people with new money, because complexity carries fees. The founders who stay wealthy tend to hold fewer positions, understand each one, and hold them for longer than feels interesting. Cash is a position too &mdash; the ability to move quickly when something genuinely good appears is worth more than the yield you gave up waiting for it.</p>
+        </article>
+
+        <article class="entry">
+          <span class="entry-tag">Entry five &middot; On access</span>
+          <h3>Pay for rooms, not for information</h3>
+          <p>Information is free and worth roughly what it costs. What isn&#8217;t free is the founder who will tell you what a deal like yours actually closed at, introduce you to the buyer, and answer the follow-up question six months later. Access to people who have already crossed the line you are approaching is the only expenditure in business that reliably returns more than it costs.</p>
+        </article>
+      </div>
+
+      <p class="ledger-note">Members&#8217; opinion and general commentary &mdash; not financial advice. New entries each quarter.</p>
     </div>
   </section>
 
