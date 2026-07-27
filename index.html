@@ -3,7 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Eight Figure Club — for companies past $10,000,000</title>
+<title>Eight Figure Club — a private network for founders past $10,000,000</title>
+<meta name="description" content="Eight Figure Club is a members-only network for founders whose companies have crossed $10,000,000 in total value. Verified members, direct introductions, and quarterly closed-door dinners.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#dbe2d4">
+<meta property="og:title" content="Eight Figure Club">
+<meta property="og:description" content="A private network for founders whose companies have crossed $10,000,000 in total value.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2311241a'/%3E%3Ctext x='50' y='72' font-family='Georgia,serif' font-size='64' fill='%23dbe2d4' text-anchor='middle'%3E8%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Spectral:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -62,6 +69,9 @@
   .rule-thin{ height:1px; background:var(--rule); border:0; margin:0; }
   .rule-double{ height:4px; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); background:transparent; }
 
+  /* sections must clear the sticky masthead when linked to */
+  section[id], main[id]{ scroll-margin-top:80px; }
+
   /* ---------- masthead ---------- */
   .masthead{
     position:sticky; top:0; z-index:60;
@@ -84,12 +94,22 @@
   }
   .mark span{ color:var(--seal); }
   .masthead-seats{
-    margin-left:auto;
+    margin-left:26px;
     font-family:var(--mono);
     font-size:11px;
     letter-spacing:.12em;
     color:var(--ink-soft);
+    white-space:nowrap;
   }
+  .nav{ display:flex; align-items:center; gap:22px; margin-left:auto; }
+  .nav-toggle{
+    display:none;
+    margin-left:auto;
+    font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    background:transparent; border:1px solid var(--rule); color:var(--ink);
+    padding:9px 14px; cursor:pointer;
+  }
+  .nav-toggle:hover{ border-color:var(--ink); }
   .btn{
     display:inline-block;
     font-family:var(--mono);
@@ -421,6 +441,64 @@
   .step b{ font-family:var(--mono); font-size:11px; letter-spacing:.18em; color:var(--seal); display:block; margin-bottom:8px; }
   .step span{ font-size:15px; color:var(--ink-soft); }
 
+  /* ---------- application form ---------- */
+  .form-wrap{
+    max-width:760px; margin:44px auto 0; text-align:left;
+    border:1px solid var(--rule); background:var(--paper-lite);
+    padding:clamp(22px,3.4vw,38px);
+    position:relative;
+  }
+  .form-wrap::after{
+    content:""; position:absolute; inset:7px; border:1px solid rgba(17,36,26,.12); pointer-events:none;
+  }
+  .form-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; position:relative; }
+  .field{ display:flex; flex-direction:column; }
+  .field.full{ grid-column:1 / -1; }
+  .field label{
+    font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:7px;
+  }
+  .field label .req{ color:var(--seal); }
+  .field input, .field select, .field textarea{
+    font-family:var(--body); font-size:16px; color:var(--ink);
+    background:var(--paper); border:1px solid var(--rule); border-radius:0;
+    padding:11px 13px; width:100%;
+    transition:border-color .2s ease;
+  }
+  .field textarea{ min-height:104px; resize:vertical; }
+  .field select{ font-family:var(--mono); font-size:14px; appearance:none;
+    background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);
+    background-position:calc(100% - 18px) 51%, calc(100% - 13px) 51%;
+    background-size:5px 5px, 5px 5px; background-repeat:no-repeat; padding-right:38px; }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--ink); outline:none; }
+  .field.invalid input, .field.invalid select, .field.invalid textarea{ border-color:var(--seal); }
+  .err{ font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--seal); margin-top:6px; min-height:0; }
+  .form-actions{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:24px; position:relative; }
+  .form-actions .btn{ cursor:pointer; font-family:var(--mono); }
+  .form-fine{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+  .form-alert{
+    display:none; margin-bottom:20px; padding:12px 14px;
+    border-left:2px solid var(--seal); background:rgba(123,43,33,.06);
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; color:var(--seal);
+    position:relative;
+  }
+  .form-alert.show{ display:block; }
+  .receipt{ display:none; position:relative; text-align:left; }
+  .receipt.show{ display:block; }
+  .receipt h3{ font-family:var(--display); font-weight:400; font-size:clamp(22px,3vw,30px); margin:0 0 8px; }
+  .receipt .ref{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; color:var(--seal); text-transform:uppercase; }
+  .receipt pre{
+    font-family:var(--mono); font-size:12.5px; line-height:1.7; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--rule); padding:18px;
+    white-space:pre-wrap; word-break:break-word; margin:18px 0 0; max-height:280px; overflow:auto;
+  }
+  .link-btn{
+    font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    background:none; border:0; border-bottom:1px solid var(--rule); color:var(--ink-soft);
+    padding:0 0 2px; cursor:pointer;
+  }
+  .link-btn:hover{ color:var(--ink); border-color:var(--seal); }
+
   footer{ border-top:1px solid var(--rule); padding:26px 0 40px; }
   .foot{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--ink-soft); }
   .foot .mark{ font-size:12px; }
@@ -477,8 +555,28 @@
     transition:color .2s ease, border-color .2s ease;
   }
   .nav-link:hover{ color:var(--ink); border-color:var(--seal); }
+  .nav-link.active{ color:var(--ink); border-color:var(--seal); }
 
+  @media (max-width:1080px){
+    .masthead-seats{ display:none; }
+  }
+  @media (max-width:780px){
+    .nav-toggle{ display:inline-flex; }
+    .nav{
+      position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; align-items:stretch; gap:0;
+      margin:0; padding:4px var(--gutter) 14px;
+      background:var(--paper-lite); border-bottom:1px solid var(--rule);
+      box-shadow:0 16px 30px -26px rgba(17,36,26,.9);
+      display:none;
+    }
+    .nav.open{ display:flex; }
+    .nav .nav-link{ padding:14px 0; border-bottom:1px solid var(--rule); border-radius:0; }
+    .nav .nav-link:last-child{ border-bottom:0; }
+    .masthead-apply{ order:-1; }
+  }
   @media (max-width:900px){
+    .form-grid{ grid-template-columns:1fr; }
     .steps{ grid-template-columns:1fr; }
     .lead-entry, .entries{ grid-template-columns:1fr; }
     .article{ grid-template-columns:1fr; gap:14px; }
@@ -487,9 +585,6 @@
     .portrait{ max-width:220px; }
     .masthead-seats{ display:none; }
     .masthead-in{ gap:14px; }
-  }
-  @media (max-width:640px){
-    .nav-link{ display:none; }
   }
   @media (max-width:520px){
     .dg{ box-shadow:inset 0 0 0 2px var(--paper-lite); }
@@ -510,8 +605,14 @@
   <div class="wrap masthead-in">
     <a class="mark" href="#top">Eight Figure <span>Club</span></a>
     <div class="masthead-seats">50 seats open at the founding tier</div>
-    <a class="nav-link" href="#ledger">The Ledger</a>
-    <a class="btn btn-ghost" href="#apply">Apply</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">Menu</button>
+    <nav class="nav" id="navMenu" aria-label="Sections">
+      <a class="nav-link" href="#charter">What you get</a>
+      <a class="nav-link" href="#ledger">The Ledger</a>
+      <a class="nav-link" href="#membership">Membership</a>
+      <a class="nav-link" href="#founder">Founder</a>
+    </nav>
+    <a class="btn btn-ghost masthead-apply" href="#apply">Apply</a>
   </div>
 </header>
 
@@ -821,7 +922,79 @@
       <p class="eyebrow">Applications</p>
       <h2>One threshold. No exceptions.</h2>
       <p>If your company has crossed $10,000,000 in total value, send it through. Applications are reviewed weekly and answered either way.</p>
-      <a class="btn" href="mailto:apply@eightfigureclub.com?subject=Eight%20Figure%20Club%20application">Start an application</a>
+
+      <div class="form-wrap">
+        <form id="applyForm" novalidate>
+          <div class="form-alert" id="formAlert" role="alert"></div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="f-name">Your name <span class="req">*</span></label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+              <span class="err" data-err="f-name"></span>
+            </div>
+            <div class="field">
+              <label for="f-email">Email <span class="req">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+              <span class="err" data-err="f-email"></span>
+            </div>
+            <div class="field">
+              <label for="f-company">Company <span class="req">*</span></label>
+              <input id="f-company" name="company" type="text" autocomplete="organization" required>
+              <span class="err" data-err="f-company"></span>
+            </div>
+            <div class="field">
+              <label for="f-site">Website</label>
+              <input id="f-site" name="website" type="text" placeholder="company.com" autocomplete="url">
+              <span class="err" data-err="f-site"></span>
+            </div>
+            <div class="field">
+              <label for="f-value">Total company value <span class="req">*</span></label>
+              <select id="f-value" name="value" required>
+                <option value="">Select a range</option>
+                <option>$10M &ndash; $25M</option>
+                <option>$25M &ndash; $50M</option>
+                <option>$50M &ndash; $100M</option>
+                <option>Over $100M</option>
+                <option>Under $10M</option>
+              </select>
+              <span class="err" data-err="f-value"></span>
+            </div>
+            <div class="field">
+              <label for="f-proof">Verification you can provide <span class="req">*</span></label>
+              <select id="f-proof" name="proof" required>
+                <option value="">Select a document</option>
+                <option>Cap table</option>
+                <option>Valuation letter</option>
+                <option>Audited financial statement</option>
+                <option>Sale or acquisition agreement</option>
+                <option>Something else</option>
+              </select>
+              <span class="err" data-err="f-proof"></span>
+            </div>
+            <div class="field full">
+              <label for="f-story">How you reached eight figures <span class="req">*</span></label>
+              <textarea id="f-story" name="story" required placeholder="What the company does, and the short version of how it got here."></textarea>
+              <span class="err" data-err="f-story"></span>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit">Review application</button>
+            <span class="form-fine">Reviewed weekly &middot; answered either way</span>
+          </div>
+        </form>
+
+        <div class="receipt" id="receipt" tabindex="-1">
+          <p class="ref" id="receiptRef">Reference</p>
+          <h3>Your application is ready to send.</h3>
+          <p style="max-width:52ch;color:var(--ink-soft);margin:0">Send it from your own email so we can reply to you directly. Use the mail button, or copy the text and send it to <strong>apply@eightfigureclub.com</strong>.</p>
+          <div class="form-actions">
+            <a class="btn" id="mailBtn" href="mailto:apply@eightfigureclub.com">Open in mail app</a>
+            <button class="link-btn" type="button" id="copyBtn">Copy application</button>
+            <button class="link-btn" type="button" id="editBtn">Edit application</button>
+          </div>
+          <pre id="receiptBody"></pre>
+        </div>
+      </div>
 
       <div class="steps">
         <div class="step"><b>Step one</b><span>Send your company name, what it does, and how you reached eight figures.</span></div>
@@ -836,6 +1009,7 @@
   <div class="wrap foot">
     <a class="mark" href="#top">Eight Figure <span>Club</span></a>
     <span>Auckland · Sydney · Singapore · San Francisco</span>
+    <a href="mailto:apply@eightfigureclub.com">apply@eightfigureclub.com</a>
     <span style="margin-left:auto">Membership is annual · Verification required</span>
   </div>
 </footer>
@@ -843,7 +1017,7 @@
 <script>
 (function(){
   "use strict";
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
   /* ---- guilloche engraving ---- */
   function guilloche(el, cx, cy, rings, rx, ry, stroke){
@@ -915,6 +1089,187 @@
         e.preventDefault();
         setState(!portrait.classList.contains("colour"));
       }
+    });
+  }
+
+  /* ---- mobile menu ---- */
+  var navToggle = document.getElementById("navToggle");
+  var navMenu = document.getElementById("navMenu");
+  if(navToggle && navMenu){
+    var closeNav = function(){
+      navMenu.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.textContent = "Menu";
+    };
+    navToggle.addEventListener("click", function(){
+      var open = navMenu.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      navToggle.textContent = open ? "Close" : "Menu";
+    });
+    navMenu.addEventListener("click", function(e){
+      if(e.target.classList.contains("nav-link")) closeNav();
+    });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeNav(); });
+    window.addEventListener("resize", function(){ if(window.innerWidth > 780) closeNav(); });
+  }
+
+  /* ---- highlight the section you're reading ---- */
+  var navLinks = document.querySelectorAll(".nav-link");
+  if(navLinks.length && "IntersectionObserver" in window){
+    var linkFor = {};
+    Array.prototype.forEach.call(navLinks, function(a){
+      linkFor[a.getAttribute("href").slice(1)] = a;
+    });
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var link = linkFor[entry.target.id];
+        if(!link) return;
+        if(entry.isIntersecting){
+          Array.prototype.forEach.call(navLinks, function(a){ a.classList.remove("active"); });
+          link.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    Object.keys(linkFor).forEach(function(id){
+      var sec = document.getElementById(id);
+      if(sec) spy.observe(sec);
+    });
+  }
+
+  /* ---- application form ---- */
+  var form = document.getElementById("applyForm");
+  if(form){
+    var alertBox = document.getElementById("formAlert");
+    var receipt = document.getElementById("receipt");
+    var receiptBody = document.getElementById("receiptBody");
+    var receiptRef = document.getElementById("receiptRef");
+    var mailBtn = document.getElementById("mailBtn");
+    var copyBtn = document.getElementById("copyBtn");
+    var editBtn = document.getElementById("editBtn");
+    var EMAIL = "apply@eightfigureclub.com";
+
+    var labelOf = function(el){
+      var l = form.querySelector('label[for="' + el.id + '"]');
+      return l ? l.textContent.replace("*", "").trim() : "This field";
+    };
+    var showError = function(el, msg){
+      el.closest(".field").classList.add("invalid");
+      el.setAttribute("aria-invalid", "true");
+      var slot = form.querySelector('[data-err="' + el.id + '"]');
+      if(slot) slot.textContent = msg;
+    };
+    var clearError = function(el){
+      el.closest(".field").classList.remove("invalid");
+      el.removeAttribute("aria-invalid");
+      var slot = form.querySelector('[data-err="' + el.id + '"]');
+      if(slot) slot.textContent = "";
+    };
+    var validEmail = function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); };
+
+    Array.prototype.forEach.call(form.querySelectorAll("input, select, textarea"), function(el){
+      el.addEventListener("input", function(){ clearError(el); });
+      el.addEventListener("change", function(){ clearError(el); });
+    });
+
+    var validate = function(){
+      var firstBad = null;
+      Array.prototype.forEach.call(form.querySelectorAll("[required]"), function(el){
+        var v = (el.value || "").trim();
+        clearError(el);
+        if(!v){
+          showError(el, labelOf(el) + " is required.");
+          if(!firstBad) firstBad = el;
+        } else if(el.type === "email" && !validEmail(v)){
+          showError(el, "Enter an email address we can reply to.");
+          if(!firstBad) firstBad = el;
+        } else if(el.id === "f-story" && v.length < 25){
+          showError(el, "A little more detail, please — a sentence or two.");
+          if(!firstBad) firstBad = el;
+        }
+      });
+      return firstBad;
+    };
+
+    var makeRef = function(){
+      var n = Math.floor(1000 + Math.random() * 9000);
+      return "EFC-" + new Date().getFullYear() + "-" + n;
+    };
+
+    var val = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ""; };
+    var currentText = "";
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var bad = validate();
+      if(bad){
+        alertBox.textContent = "Some details are still missing — see the fields marked below.";
+        alertBox.classList.add("show");
+        bad.focus();
+        return;
+      }
+      alertBox.classList.remove("show");
+
+      var ref = makeRef();
+      var under = val("f-value") === "Under $10M";
+      currentText =
+        "EIGHT FIGURE CLUB — MEMBERSHIP APPLICATION\n" +
+        "Reference: " + ref + "\n" +
+        "Date: " + new Date().toLocaleDateString() + "\n\n" +
+        "Name: " + val("f-name") + "\n" +
+        "Email: " + val("f-email") + "\n" +
+        "Company: " + val("f-company") + "\n" +
+        "Website: " + (val("f-site") || "—") + "\n" +
+        "Total company value: " + val("f-value") + "\n" +
+        "Verification available: " + val("f-proof") + "\n\n" +
+        "How the company reached eight figures:\n" + val("f-story") + "\n";
+
+      receiptBody.textContent = currentText;
+      receiptRef.textContent = "Reference " + ref;
+      mailBtn.setAttribute("href",
+        "mailto:" + EMAIL +
+        "?subject=" + encodeURIComponent("Membership application — " + val("f-company") + " (" + ref + ")") +
+        "&body=" + encodeURIComponent(currentText));
+
+      form.style.display = "none";
+      receipt.classList.add("show");
+      receipt.focus();
+
+      if(under){
+        alertBox.textContent = "Noted: the club's threshold is $10,000,000 in total value. You're welcome to apply, but applications below the line are usually held rather than accepted.";
+        alertBox.classList.add("show");
+        receipt.insertBefore(alertBox, receipt.firstChild);
+      }
+    });
+
+    copyBtn.addEventListener("click", function(){
+      var done = function(){
+        copyBtn.textContent = "Copied";
+        setTimeout(function(){ copyBtn.textContent = "Copy application"; }, 2200);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(currentText).then(done, function(){ fallbackCopy(); });
+      } else { fallbackCopy(); }
+      function fallbackCopy(){
+        var ta = document.createElement("textarea");
+        ta.value = currentText;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); done(); }
+        catch(err){ copyBtn.textContent = "Select the text below"; }
+        document.body.removeChild(ta);
+      }
+    });
+
+    editBtn.addEventListener("click", function(){
+      receipt.classList.remove("show");
+      alertBox.classList.remove("show");
+      form.style.display = "";
+      form.insertBefore(alertBox, form.firstChild);
+      var first = document.getElementById("f-name");
+      if(first) first.focus();
     });
   }
 
