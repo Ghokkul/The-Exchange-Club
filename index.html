@@ -925,9 +925,9 @@
   <!-- APPLY -->
   <section class="sec apply" id="apply">
     <div class="wrap">
-      <p class="eyebrow">Applications</p>
-      <h2>One threshold. No exceptions.</h2>
-      <p>If your company has crossed $10,000,000 in total value, send it through. Applications are reviewed weekly and answered either way.</p>
+      <p class="eyebrow">Joining</p>
+      <h2>Come and take a seat.</h2>
+      <p>Tell us who you are and what you&#8217;re building and Ghokkul reads every one of them. Prefer to just write? Email <a href="mailto:helloghokkul@gmail.com">helloghokkul@gmail.com</a> and skip the form entirely.</p>
 
       <div class="form-wrap">
         <form id="applyForm" novalidate>
@@ -944,68 +944,62 @@
               <span class="err" data-err="f-email"></span>
             </div>
             <div class="field">
-              <label for="f-company">Company <span class="req">*</span></label>
-              <input id="f-company" name="company" type="text" autocomplete="organization" required>
-              <span class="err" data-err="f-company"></span>
+              <label for="f-building">What you&#8217;re building <span class="req">*</span></label>
+              <input id="f-building" name="building" type="text" placeholder="Company, product or project" required>
+              <span class="err" data-err="f-building"></span>
             </div>
             <div class="field">
-              <label for="f-site">Website</label>
-              <input id="f-site" name="website" type="text" placeholder="company.com" autocomplete="url">
-              <span class="err" data-err="f-site"></span>
+              <label for="f-link">Website or LinkedIn</label>
+              <input id="f-link" name="link" type="text" placeholder="Optional" autocomplete="url">
+              <span class="err" data-err="f-link"></span>
             </div>
             <div class="field">
-              <label for="f-value">Total company value <span class="req">*</span></label>
-              <select id="f-value" name="value" required>
-                <option value="">Select a range</option>
-                <option>$10M &ndash; $25M</option>
-                <option>$25M &ndash; $50M</option>
-                <option>$50M &ndash; $100M</option>
-                <option>Over $100M</option>
-                <option>Under $10M</option>
+              <label for="f-role">Which sounds most like you?</label>
+              <select id="f-role" name="role">
+                <option value="">Pick one &mdash; optional</option>
+                <option>Founder</option>
+                <option>Co-founder</option>
+                <option>CEO or Managing Director</option>
+                <option>Part of a startup team</option>
+                <option>Investor or advisor</option>
+                <option>Still figuring it out</option>
               </select>
-              <span class="err" data-err="f-value"></span>
+              <span class="err" data-err="f-role"></span>
             </div>
             <div class="field">
-              <label for="f-proof">Verification you can provide <span class="req">*</span></label>
-              <select id="f-proof" name="proof" required>
-                <option value="">Select a document</option>
-                <option>Cap table</option>
-                <option>Valuation letter</option>
-                <option>Audited financial statement</option>
-                <option>Sale or acquisition agreement</option>
-                <option>Something else</option>
-              </select>
-              <span class="err" data-err="f-proof"></span>
+              <label for="f-place">Where you&#8217;re based</label>
+              <input id="f-place" name="place" type="text" placeholder="Optional" autocomplete="country-name">
+              <span class="err" data-err="f-place"></span>
             </div>
             <div class="field full">
-              <label for="f-story">How you reached eight figures <span class="req">*</span></label>
-              <textarea id="f-story" name="story" required placeholder="What the company does, and the short version of how it got here."></textarea>
-              <span class="err" data-err="f-story"></span>
+              <label for="f-hope">What would make joining worth it for you?</label>
+              <textarea id="f-hope" name="hope" placeholder="Optional. The introduction you want, the problem you&#8217;re stuck on, or nothing at all."></textarea>
+              <span class="err" data-err="f-hope"></span>
             </div>
           </div>
           <div class="form-actions">
-            <button class="btn" type="submit">Review application</button>
-            <span class="form-fine">Reviewed weekly &middot; answered either way</span>
+            <button class="btn" type="submit">Send my introduction</button>
+            <span class="form-fine">Every message gets a reply</span>
           </div>
         </form>
 
         <div class="receipt" id="receipt" tabindex="-1">
           <p class="ref" id="receiptRef">Reference</p>
-          <h3>Your application is ready to send.</h3>
-          <p style="max-width:52ch;color:var(--ink-soft);margin:0">Send it from your own email so we can reply to you directly. Use the mail button, or copy the text and send it to <strong>apply@theexchange.club</strong>.</p>
+          <h3>Ready to send.</h3>
+          <p style="max-width:52ch;color:var(--ink-soft);margin:0">It goes from your own email, so the reply lands straight back with you. Tap the button, or copy the text and send it to <strong>helloghokkul@gmail.com</strong> yourself.</p>
           <div class="form-actions">
-            <a class="btn" id="mailBtn" href="mailto:apply@theexchange.club">Open in mail app</a>
-            <button class="link-btn" type="button" id="copyBtn">Copy application</button>
-            <button class="link-btn" type="button" id="editBtn">Edit application</button>
+            <a class="btn" id="mailBtn" href="mailto:helloghokkul@gmail.com">Open in mail app</a>
+            <button class="link-btn" type="button" id="copyBtn">Copy the message</button>
+            <button class="link-btn" type="button" id="editBtn">Go back and edit</button>
           </div>
           <pre id="receiptBody"></pre>
         </div>
       </div>
 
       <div class="steps">
-        <div class="step"><b>Step one</b><span>Send your company name, what it does, and how you reached eight figures.</span></div>
-        <div class="step"><b>Step two</b><span>Verification — a cap table, valuation letter, audited statement, or a sale agreement.</span></div>
-        <div class="step"><b>Step three</b><span>Pay the $5 once. Your card is issued within two days and never expires.</span></div>
+        <div class="step"><b>Step one</b><span>Send the form above, or just email helloghokkul@gmail.com and say hello.</span></div>
+        <div class="step"><b>Step two</b><span>Ghokkul replies, usually within a few days, and asks whatever he still wants to know.</span></div>
+        <div class="step"><b>Step three</b><span>Pay the $5 once. Your Founder&#8217;s Circle card is issued within two days and never expires.</span></div>
       </div>
     </div>
   </section>
@@ -1015,7 +1009,7 @@
   <div class="wrap foot">
     <a class="mark" href="#top">The <span>Exchange</span></a>
     <span>Auckland · Sydney · Singapore · San Francisco</span>
-    <a href="mailto:apply@theexchange.club">apply@theexchange.club</a>
+    <a href="mailto:helloghokkul@gmail.com">helloghokkul@gmail.com</a>
     <span style="margin-left:auto">One payment · No renewal · Verification required</span>
   </div>
 </footer>
@@ -1152,7 +1146,7 @@
     var mailBtn = document.getElementById("mailBtn");
     var copyBtn = document.getElementById("copyBtn");
     var editBtn = document.getElementById("editBtn");
-    var EMAIL = "apply@theexchange.club";
+    var EMAIL = "helloghokkul@gmail.com";
 
     var labelOf = function(el){
       var l = form.querySelector('label[for="' + el.id + '"]');
@@ -1183,13 +1177,10 @@
         var v = (el.value || "").trim();
         clearError(el);
         if(!v){
-          showError(el, labelOf(el) + " is required.");
+          showError(el, "We need this one to reach you.");
           if(!firstBad) firstBad = el;
         } else if(el.type === "email" && !validEmail(v)){
-          showError(el, "Enter an email address we can reply to.");
-          if(!firstBad) firstBad = el;
-        } else if(el.id === "f-story" && v.length < 25){
-          showError(el, "A little more detail, please — a sentence or two.");
+          showError(el, "Check this address — the reply comes back here.");
           if(!firstBad) firstBad = el;
         }
       });
@@ -1208,7 +1199,7 @@
       e.preventDefault();
       var bad = validate();
       if(bad){
-        alertBox.textContent = "Some details are still missing — see the fields marked below.";
+        alertBox.textContent = "Almost there — just the fields marked below.";
         alertBox.classList.add("show");
         bad.focus();
         return;
@@ -1216,35 +1207,32 @@
       alertBox.classList.remove("show");
 
       var ref = makeRef();
-      var under = val("f-value") === "Under $10M";
+      var optional = function(label, id){
+        var v = val(id);
+        return v ? label + ": " + v + "\n" : "";
+      };
       currentText =
-        "THE EXCHANGE — MEMBERSHIP APPLICATION\n" +
+        "THE EXCHANGE — JOINING THE CLUB\n" +
         "Reference: " + ref + "\n" +
         "Date: " + new Date().toLocaleDateString() + "\n\n" +
         "Name: " + val("f-name") + "\n" +
         "Email: " + val("f-email") + "\n" +
-        "Company: " + val("f-company") + "\n" +
-        "Website: " + (val("f-site") || "—") + "\n" +
-        "Total company value: " + val("f-value") + "\n" +
-        "Verification available: " + val("f-proof") + "\n\n" +
-        "How the company reached eight figures:\n" + val("f-story") + "\n";
+        "Building: " + val("f-building") + "\n" +
+        optional("Website or LinkedIn", "f-link") +
+        optional("Role", "f-role") +
+        optional("Based in", "f-place") +
+        (val("f-hope") ? "\nWhat would make joining worth it:\n" + val("f-hope") + "\n" : "");
 
       receiptBody.textContent = currentText;
       receiptRef.textContent = "Reference " + ref;
       mailBtn.setAttribute("href",
         "mailto:" + EMAIL +
-        "?subject=" + encodeURIComponent("Membership application — " + val("f-company") + " (" + ref + ")") +
+        "?subject=" + encodeURIComponent("Joining The Exchange — " + val("f-name") + " (" + ref + ")") +
         "&body=" + encodeURIComponent(currentText));
 
       form.style.display = "none";
       receipt.classList.add("show");
       receipt.focus();
-
-      if(under){
-        alertBox.textContent = "Noted: the club's threshold is $10,000,000 in total value. You're welcome to apply, but applications below the line are usually held rather than accepted.";
-        alertBox.classList.add("show");
-        receipt.insertBefore(alertBox, receipt.firstChild);
-      }
     });
 
     copyBtn.addEventListener("click", function(){
